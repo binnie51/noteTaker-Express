@@ -24,7 +24,7 @@ app.get('/notes', (req, res) =>
   res.sendFile(path.join(__dirname, '/public/pages/notes.html'))
 );
 
-// GET wildcard, should return the index.html page
+// GET wildcard, fallback route for when a user attempts to visit routes that don't exist
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, '/public/index.html'))
 })
