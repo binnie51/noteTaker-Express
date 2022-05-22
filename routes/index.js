@@ -1,9 +1,10 @@
 const express = require('express')
 
 // Create modular router for API 
-const apiRouterNotes = require('./apiRouterNotes.js')
+const notesRouter = require('./apiRouterNotes');
+
 const app = express();
 
-app.use('/notes', apiRouterNotes)
+app.use('/notes', notesRouter)
 
 module.exports = app;
