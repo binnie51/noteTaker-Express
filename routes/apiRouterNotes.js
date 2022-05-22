@@ -5,17 +5,21 @@ const path = require('path')
 const fs = require('fs')
 
 // Helper for generating unique IDs
-const uuid = require('./helpers/uuid');
+const uuid = require('../helpers/uuid');
+
+//Setting up the express middleware
+notesRouter.use(express.json());
+notesRouter.use(express.urlencoded({ extended: true }));
 
 // GET route to read json file and return all saved notes as json
-notesRouter.get('/api/notes', (req, res) => {
-    fs.readFile('db/db.json', 'utf8', (err, data) => {
+notesRouter.get('/', (req, res) => {
+    fs.readFile('./db/db.json', 'utf8', (err, data) => {
         err ? console.log(err) : res.json(JSON.parse(data))
     });
 });
 
 // POST route, receive a new note to save on the request body
-notesRouter.post('/api/notes', (req, res) => {
+notesRouter.post('/', (req, res) => {
 
     // Destructuring the notes in req.body
     const { title, text } = req.body;
@@ -29,7 +33,11 @@ notesRouter.post('/api/notes', (req, res) => {
             id: uuid(),
         };
 
-        fs.writeFile('/db/db.json', JSON.stringify(notesRouter), 'utf8', (err, data) => {
+        const parsedNotes = JSON.parse(data)
+        parsedNotes.push(newNote);
+
+        // Write to ile
+        fs.writeFile('./db/db.json', JSON.stringify(parsedNotes), 'utf8', (err) => {
             err ? console.log(err) : console.log('Update note page success!')
         });
 
@@ -45,7 +53,9 @@ notesRouter.post('/api/notes', (req, res) => {
     }
 });
 
-// DELETE 
-notesRouter.delete('api/notes/:id')
+// DELETE requests
+// notesRouter.delete('/api/notes/:id', (req, res) => {
+
+// })
 
 module.exports = notesRouter;

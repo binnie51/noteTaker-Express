@@ -3,7 +3,7 @@ Note taking application that can used to wtite nodes and save notes. This applic
 
 ##  URLs
 Github: https://github.com/binnie51/noteTaker-Express.git <br/>
-Deployed: 
+Deployed: https://git.heroku.com/cryptic-plains-00631.git
 ## Technologies
 * HTML 
 * CSS
@@ -16,8 +16,6 @@ Deployed:
 ## Usage
 
 ## Contributing
-
-## Tests
 
 ## Demo
 
