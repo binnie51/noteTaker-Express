@@ -2,7 +2,7 @@
 const express = require('express');
 const path = require('path');
 const fs = require('fs');
-const { v4: uuidv4} = require('uuid');
+const { v4: uuidv4 } = require('uuid');
 const database = require('./db/db.json');
 const PORT = process.env.PORT || 3001;
 const app = express();
@@ -16,20 +16,17 @@ app.use(express.static('public'));
 
 // GET Route for homepage
 app.get('/', (req, res) =>
-  res.sendFile(path.join(__dirname, '/public/index.html'))
+  res.sendFile(path.join(__dirname, './public/index.html'))
 );
 
 // GET Route for notes page
 app.get('/notes', (req, res) =>
-  res.sendFile(path.join(__dirname, '/public/notes.html'))
+  res.sendFile(path.join(__dirname, './public/notes.html'))
 );
-
-// GET route to read json file and return all saved notes as json
-app.get('/api/notes', (req, res) => res.json(database));
 
 // GET wildcard, fallback route for when a user attempts to visit routes that don't exist
 app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, '/public/index.html'))
+  res.sendFile(path.join(__dirname, './public/index.html'))
 });
 
 // POST route, receive a new note to save on the request body
@@ -67,6 +64,12 @@ app.post('/api/notes', (req, res) => {
       res.status(400).json('Update notes error!')
   }
 });
+
+// GET route to read json file and return all saved notes as json
+app.get('/api/notes', (req, res) => res.json(database));
+
+
+
 
 // Listen for connections
 app.listen(PORT, () =>

@@ -1,10 +1,11 @@
 {
   "name": "note-taker",
   "version": "1.0.0",
-  "description": "",
+  "description": "Note taking application that can used to wtite nodes and save notes. This appliction utilized express.js, which is a back end application framework for Node.js. It'll then  retrieve the data of notes from  JSON file and connects the 2 dots between front-end and back-end. This app is hosted in Heroku",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
   },
   "author": "",
   "license": "ISC",
@@ -12,5 +13,14 @@
     "express": "^4.18.1",
     "uniqid": "^5.4.0",
     "uuid": "^8.3.2"
-  }
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/binnie51/noteTaker-Express.git"
+  },
+  "bugs": {
+    "url": "https://github.com/binnie51/noteTaker-Express/issues"
+  },
+  "homepage": "https://github.com/binnie51/noteTaker-Express#readme"
 }
