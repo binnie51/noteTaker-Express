@@ -25,9 +25,9 @@ app.get('/notes', (req, res) =>
 );
 
 // GET wildcard, fallback route for when a user attempts to visit routes that don't exist
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, './public/index.html'))
-});
+// app.get('*', (req, res) => {
+//   res.sendFile(path.join(__dirname, './public/index.html'))
+// });
 
 // POST route, receive a new note to save on the request body
 app.post('/api/notes', (req, res) => {
@@ -50,7 +50,7 @@ app.post('/api/notes', (req, res) => {
       fs.writeFile(`./db/db.json`, JSON.stringify(database), (err) =>
           err
               ? console.error(err)
-              : console.log('Successfully updated reviews!')
+              : console.log('Successfully updated notes!')
       );
           
       const response = {
@@ -59,7 +59,7 @@ app.post('/api/notes', (req, res) => {
       };
 
       console.log(response);
-      res.json(response);
+      res.status(201).json(response);
   } else {
       res.status(400).json('Update notes error!')
   }
@@ -68,7 +68,13 @@ app.post('/api/notes', (req, res) => {
 // GET route to read json file and return all saved notes as json
 app.get('/api/notes', (req, res) => res.json(database));
 
-
+//Delete notes
+app.delete('/api/notes/:id', (req, res) => {
+  let noteIndex = database.findIndex(item => item.id === req.params.id);
+  database.splice(noteIndex, 1);
+  res.sendStatus(200);
+  fs.writeFile('./db/db.json', JSON.stringify(database), err => console.log(err));
+});
 
 
 // Listen for connections
