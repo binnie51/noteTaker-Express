@@ -24,11 +24,6 @@ app.get('/notes', (req, res) =>
   res.sendFile(path.join(__dirname, './public/notes.html'))
 );
 
-// GET wildcard, fallback route for when a user attempts to visit routes that don't exist
-// app.get('*', (req, res) => {
-//   res.sendFile(path.join(__dirname, './public/index.html'))
-// });
-
 // POST route, receive a new note to save on the request body
 app.post('/api/notes', (req, res) => {
   // Destructuring the notes in req.body
@@ -68,7 +63,8 @@ app.post('/api/notes', (req, res) => {
 // GET route to read json file and return all saved notes as json
 app.get('/api/notes', (req, res) => res.json(database));
 
-//Delete notes
+// Delete notes by searching a particular index (id) from my database object
+// based on the 'click' event listener, it'll delete a particular entry I clicked based on the note's unique id
 app.delete('/api/notes/:id', (req, res) => {
   let noteIndex = database.findIndex(item => item.id === req.params.id);
   database.splice(noteIndex, 1);
@@ -76,6 +72,10 @@ app.delete('/api/notes/:id', (req, res) => {
   fs.writeFile('./db/db.json', JSON.stringify(database), err => console.log(err));
 });
 
+// GET wildcard, fallback route for when a user attempts to visit routes that don't exist
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, './public/index.html'))
+});
 
 // Listen for connections
 app.listen(PORT, () =>
